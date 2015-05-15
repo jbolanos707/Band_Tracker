@@ -30,15 +30,36 @@ get('/bands/:id') do
   erb(:band)
 end
 
+=begin
 post('/bands/:id') do
   band_id = params.fetch('id').to_i
-  band_name = params.fetch('name')
   new_venue = Venue.create(name: name)
   band = Band.find(band_id)
-  band.venues().push(new_venue)
 
   redirect('/bands/'.concat(band_id.to_s))
 end
+=end
+
+
+post('/bands/:id') do
+  band_id = params.fetch('id').to_i
+  venue_ids = params.fetch('venue_ids')
+  band = Band.find(band_id)
+  venue_ids.each do |venue_id|
+    venue = Venue.find(venue_id.to_i)
+    band.venues().push(venue)
+  end
+  redirect('/bands/'.concat(band_id.to_s))
+end
+
+patch('/bands/:id') do
+  band_id = params.fetch('id').to_i
+  name = params.fetch('name')
+  @band = Band.find(params.fetch('id').to_i())
+  @band.update(name: name)
+  redirect('/bands/'.concat(band_id.to_s))
+end
+
 
 delete('/bands/:id') do
   band_id = params.fetch('id').to_i
@@ -67,15 +88,4 @@ get('/venues/:id') do
   venue_id = params.fetch('id').to_i
   @venue = Venue.find(venue_id)
   erb(:venues)
-end
-
-post('bands/:id/venues') do
-  band_id = params.fetch('id').to_i
-  venue_ids = params.fetch('venue_ids')
-  band = Band.find(band_id)
-  venue_ids.each do |venue_id|
-    venue = Venue.find(venue_id.to_i)
-    band.venues().push(venue)
-  end
-  redirect('/bands/'.concat(band_id.to_s))
 end
