@@ -40,6 +40,14 @@ post('/bands/:id') do
   redirect('/bands/'.concat(band_id.to_s))
 end
 
+delete('/bands/:id') do
+  band_id = params.fetch('id').to_i
+  band = Band.find(band_id)
+  band.destroy
+
+  redirect('/bands')
+end
+
 get('/venues') do
   @venues = Venue.all
   erb(:venues)
