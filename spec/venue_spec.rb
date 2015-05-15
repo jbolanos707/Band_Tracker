@@ -7,4 +7,9 @@ describe(Venue) do
       test_venue = Venue.create(name: "the fillmore")
       expect(test_venue.name).to(eq("The Fillmore"))
   end
-end
+
+  it('validates presence of name') do
+      test_venue = Venue.new(name: '')
+      expect(test_venue.save()).to(eq(false))
+    end
+  end
