@@ -6,10 +6,10 @@ Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each { |file| require file }
 RSpec.configure do |config|
   config.after(:each) do
     Band.all().each() do |band|
-      ingredient.destroy()
+      band.destroy()
     end
     Venue.all().each() do |venue|
-      recipe.destroy()
+      venue.destroy()
     end
   end
 end
