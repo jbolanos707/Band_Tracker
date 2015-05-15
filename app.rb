@@ -30,6 +30,17 @@ get('/bands/:id') do
   erb(:band)
 end
 
+post('/bands/:id/venues') do
+  band_id = params.fetch('id').to_i
+  venue_ids = params.fetch('venue_ids')
+  band = Band.find(band_id)
+  venue_ids.each do |venue_id|
+    venue = Venue.find(venue_id.to_i)
+    band.venues().push(venue)
+  end
+  redirect('/bands/'.concat(band_id.to_s))
+end
+
 =begin
 post('/bands/:id') do
   band_id = params.fetch('id').to_i
@@ -38,7 +49,7 @@ post('/bands/:id') do
 
   redirect('/bands/'.concat(band_id.to_s))
 end
-=end
+
 
 
 post('/bands/:id') do
@@ -51,6 +62,7 @@ post('/bands/:id') do
   end
   redirect('/bands/'.concat(band_id.to_s))
 end
+=end
 
 patch('/bands/:id') do
   band_id = params.fetch('id').to_i
