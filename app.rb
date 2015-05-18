@@ -19,7 +19,7 @@ post('/bands') do
   if new_band.save()
     redirect('/bands')
   else
-    erb(:error)
+    erb(:error_band)
   end
 end
 
@@ -41,28 +41,6 @@ post('/bands/:id/venues') do
   redirect('/bands/'.concat(band_id.to_s))
 end
 
-=begin
-post('/bands/:id') do
-  band_id = params.fetch('id').to_i
-  new_venue = Venue.create(name: name)
-  band = Band.find(band_id)
-
-  redirect('/bands/'.concat(band_id.to_s))
-end
-
-
-
-post('/bands/:id') do
-  band_id = params.fetch('id').to_i
-  venue_ids = params.fetch('venue_ids')
-  band = Band.find(band_id)
-  venue_ids.each do |venue_id|
-    venue = Venue.find(venue_id.to_i)
-    band.venues().push(venue)
-  end
-  redirect('/bands/'.concat(band_id.to_s))
-end
-=end
 
 patch('/bands/:id') do
   band_id = params.fetch('id').to_i
@@ -92,12 +70,23 @@ post('/venues') do
   if new_venue.save()
     redirect('/venues')
   else
-    erb(:error)
+    erb(:error_venue)
   end
 end
 
 get('/venues/:id') do
   venue_id = params.fetch('id').to_i
   @venue = Venue.find(venue_id)
-  erb(:venues)
+  erb(:venue)
+end
+
+post('/venues/:id/') do
+  band_id = params.fetch('id').to_i
+  venue_ids = params.fetch('venue_ids')
+  venue = Venue.find(band_id)
+  band_ids.each do |band_id|
+    band = Band.find(venue_id.to_i)
+    venue.bands().push(band)
+  end
+  redirect('/venues/'.concat(venue_id.to_s))
 end

@@ -1,0 +1,14 @@
+<br>
+<form action='/venues' method='post'>
+  <label for='name'>Add A Venue</label>
+  <input name='name' id='name' type='text'>
+  <button type='submit'>Add</button>
+</form>
+<h2>Music Venues</h2>
+<% if @venues.any?() %>
+<ul>
+  <% @venues.each() do |venue| %>
+    <li><a href='/venues/<%=venue.id%>'><%= venue.name %></li>
+  <% end %>
+</ul>
+<% end %>

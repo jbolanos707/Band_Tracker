@@ -1,0 +1,10 @@
+<h2><%= @venue.name %></h2>
+<br>
+<% if @venue.bands().any?() %>
+  <h3>Bands Playing At This Venue</h3>
+  <ul>
+    <% @venue.bands().each() do |band| %>
+    <li><%= band.name() %></li>
+    <% end %>
+  </ul>
+<% end %>
