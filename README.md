@@ -48,6 +48,7 @@ Start App:
 ```console
 > ruby app.rb
 ```
+Navigate in your browser to localhost:4567
 
 ### Database Schema
 
@@ -55,29 +56,30 @@ List of relations
 
    Name     | Type  
  ---------- | -------
- <relation_0>    | table
- <relation_1>   | table
+ bands    | table
+ venues   | table
+ bands_venues   | table
 
-<relation_0> table
+bands table
 
-id  | first_name | last_name | stylist_id
-----|------------|-----------|------------
-int | varchar    | varchar   | int
-
-<relation_1> table
-
-id  | first_name | last_name
+id  | name | venue_id
 ----|------------|-----------
-int | varchar    | varchar
+int | varchar    | int
+
+venues table
+
+id  | name 
+----|------------
+int | varchar    
 
 bands_venues join table
 
-<relation_0>_id | <relation_1>_id
+band_id | venue_id
 --------|---------
 int     | int
 
 ### License ###
-Copyright  (C)  2015  Ian C. MacDonald
+Copyright  (C)  2015  Jennifer Bolanos
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -91,32 +93,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-# Band_Tracker
-
-
-
-#Contributor
-Jennifer Bolanos
-
-# Configuration
-
-This app is built using Ruby and Postgres.
-
-#Gems Used
-
-Sinatra
-Sinatra-Contrib
-Sinatra-Activerecord
-rake
-pg
-pry
-shoulda-matchers
-rspec
-capybara
-
-#License
-
-MIT License. Copyright 2009-2015 
-
